@@ -1,0 +1,11 @@
+- Create a repository
+- Intialize the repository
+- node-modules,package-lock.json,package.json
+- Install express
+- Create a server
+- Listen to port 7777/....
+- Writen a requesting handler for "/,/home,/custom,/..."
+- Installed nodemon & update script inside package.json
+- what is "-g" while installing npm packages
+- what is dependencies?
+- difference is "^ vs ~" in versions
