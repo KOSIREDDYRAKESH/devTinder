@@ -9,3 +9,16 @@
 - what is "-g" while installing npm packages
 - what is dependencies?
 - difference is "^ vs ~" in versions
+
+
+- created a git repository on github
+- ignore git modules
+- push all code to remote origin
+- played with route and route extensions
+- found that order of the routes matters
+- order of the route is very important
+- installed postman and made new colletion in new workspace
+- tested some api calls
+- explored diff kind of routing like ?,+,(),*
+- used regex in routes /a/,/.*fly$/
+- reading the query params in route,and dynamic routes
