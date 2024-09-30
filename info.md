@@ -1,3 +1,5 @@
+# Creating devTinder
+
 - Create a repository
 - Intialize the repository
 - node-modules,package-lock.json,package.json
@@ -11,6 +13,7 @@
 - difference is "^ vs ~" in versions
 
 
+# Routing
 - created a git repository on github
 - ignore git modules
 - push all code to remote origin
@@ -22,3 +25,5 @@
 - explored diff kind of routing like ?,+,(),*
 - used regex in routes /a/,/.*fly$/
 - reading the query params in route,and dynamic routes
+
+#

@@ -1,23 +1,27 @@
 const express = require("express")
 
 const app = express()
-
-app.get("/user", (req, res) => {
-    res.send({ firstName: "Kosireddy", lastName: "Rakesh" });
+//app.use("/route",[rh1,rh2],rh3,rh4,rh5)
+app.get("/user", (req, res, next) => {
+    console.log("1st Router");
+    next()
+    //res.send("1st Router!")
+}, (req, res, next) => {
+    console.log("2nd Router");
+    //res.send("2nd Router!")
+    next()
+}, (req, res, next) => {
+    console.log("3rd Router");
+    //res.send("3rd Router!")
+    next()
+}, (req, res, next) => {
+    console.log("4th Router");
+    //res.send("4th Router!")
+    next()
+}, (req, res, next) => {
+    console.log("5th Router");
+    res.send("5th Router!")
 })
-app.post("/user", (req, res) => {
-    res.send("data stored in database");
-})
-app.patch("/user", (req, res) => {
-    res.send("data is modified!");
-})
-app.delete("/user", (req, res) => {
-    res.send("User is deleted!");
-})
-app.put("/user", (req, res) => {
-    res.send("updated data in database!");
-})
-
 app.listen(7777, () => {
     console.log("connnected to the server successfully....")
 })
