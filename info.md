@@ -39,4 +39,6 @@
 - installed mongoose from npm
 - connected the app to database with url
 - connection established with database before establishing the server on port 7777
--  
+- created a userSchema & userModel
+- created a POST api to post dummy user data to database
+- validated through postman the POST api
