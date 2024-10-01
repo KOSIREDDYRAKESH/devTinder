@@ -42,3 +42,7 @@
 - created a userSchema & userModel
 - created a POST api to post dummy user data to database
 - validated through postman the POST api
+
+- added the express.json as middleware to app
+- created a singup api dynamic to recieve data from end user
+-
