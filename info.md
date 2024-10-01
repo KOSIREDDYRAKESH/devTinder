@@ -33,4 +33,10 @@
 - middleware & need of middleware
 - express js handling requests behind the scenes
 - made dummy auth middleware
-- 
+
+
+- created a free cluster on mongodb official website
+- installed mongoose from npm
+- connected the app to database with url
+- connection established with database before establishing the server on port 7777
+-  
