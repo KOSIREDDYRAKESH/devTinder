@@ -13,7 +13,7 @@
 - difference is "^ vs ~" in versions
 
 
-# Routing
+# initialize git
 - created a git repository on github
 - ignore git modules
 - push all code to remote origin
@@ -26,4 +26,11 @@
 - used regex in routes /a/,/.*fly$/
 - reading the query params in route,and dynamic routes
 
-#
+# Route handlers
+- next function
+- next function errors
+- next with res.send()
+- middleware & need of middleware
+- express js handling requests behind the scenes
+- made dummy auth middleware
+- 
