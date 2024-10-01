@@ -45,4 +45,4 @@
 
 - added the express.json as middleware to app
 - created a singup api dynamic to recieve data from end user
--
+- created a feed api to get all users from database

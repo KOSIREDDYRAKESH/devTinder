@@ -3,14 +3,26 @@ const connectDB = require("./config/database")
 const app = express()
 const User = require("./model/user")
 
-app.use(express.json())
+app.use(express.json());
+
+// create a new user api
 app.post("/singup", async (req, res) => {
-    console.log(req.body)
     const userObj = new User(req.body)
 
     await userObj.save();
-    res.send(userObj)
+    res.send("create user successfully...")
 });
+
+// Feed api to fetch all user in db
+app.get("/feed", async (req, res) => {
+    try {
+        const users = await User.find({})
+        res.send(users)
+    }
+    catch (err) {
+        res.send("something went wrong")
+    }
+})
 
 connectDB()
     .then(() => {
