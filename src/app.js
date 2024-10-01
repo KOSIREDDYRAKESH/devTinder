@@ -1,24 +1,22 @@
 const express = require("express")
 
 const app = express()
-const { adminAuth, userAuth } = require("./middleware/auth");
-app.use("/admin", adminAuth)
-app.get("/admin", (req, res) => {
-    res.send("welcome admin...")
-})
 
-app.get("/admin/getAllData", (req, res) => {
-    res.send("Data sent !! to admin...")
-})
+app.get("/user", (req, res, next) => {
+    try {
+        throw new Error("erhgkergh");
+        res.send("data sent")
 
-app.get("/admin/deleteUser", (req, res) => {
-    res.send("User deleted")
+    }
+    catch (err) {
+        res.send("contact support team")
+    }
 })
-
-app.get("/user", userAuth, (req, res) => {
-    res.send("valid user")
+app.get("/", (err, req, res, next) => {
+    if (err) {
+        res.send("Something went wrong")
+    }
 })
-
 app.listen(7777, () => {
     console.log("connnected to the server successfully....")
 })
