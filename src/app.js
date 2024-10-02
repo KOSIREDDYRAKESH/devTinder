@@ -8,15 +8,14 @@ app.use(express.json());
 // create a new user api
 app.post("/singup", async (req, res) => {
     const userObj = new User(req.body)
+
     try {
         await userObj.save();
         res.send("create user successfully...")
     }
     catch (err) {
-        res.send(err.errmsg)
+        res.send(err.message)
     }
-
-
 });
 
 // Feed api to fetch all user in db
@@ -41,19 +40,31 @@ app.delete("/user", async (req, res) => {
     }
 })
 
-app.patch("/user", async (req, res) => {
-    const userId = req.body.userId;
+app.patch("/user/:userId", async (req, res) => {
+    const userId = req.params?.userId;
     const data = req.body;
     try {
         if (!userId)
             res.send("userId not valid")
+
+        const allowedUpdates = ["userId", "skills", "photoUrl", "password", "gender", "age", "about"];
+        const isUpdateAllowed = Object.keys(data).every(k => allowedUpdates.includes(k))
+        console.log(isUpdateAllowed)
+        if (data.skills) {
+            if (data.skills.length > 10) {
+                throw new Error("skill cannot be more than 10")
+            }
+        }
+        if (!isUpdateAllowed) {
+            throw new Error("cannot update the feild.")
+        }
         const user = await User.findByIdAndUpdate(userId, data, {
             runValidators: true
         })
         res.send("user data updated successfully...")
     }
     catch (err) {
-        res.send(err)
+        res.send(err.message)
     }
 })
 

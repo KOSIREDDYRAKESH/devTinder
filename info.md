@@ -57,3 +57,9 @@
 - added reqiure,unique,minLength,maxLength,trim,default,timestamps
 - created a custom validation of gender
 - Improved the schema of database by validating the feilds
+- API level data sanitisation
+
+# installed validator
+
+- Have to explore validator functions
+- used validated library to validate email , password & photoUrl
