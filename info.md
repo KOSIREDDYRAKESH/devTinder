@@ -63,3 +63,5 @@
 
 - Have to explore validator functions
 - used validated library to validate email , password & photoUrl
+
+# NEVER TRUST req.body
