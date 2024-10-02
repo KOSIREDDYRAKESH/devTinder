@@ -65,3 +65,9 @@
 - used validated library to validate email , password & photoUrl
 
 # NEVER TRUST req.body
+
+# used helper functions
+
+- install bcrypt package 
+- created password hash code and stored in DB
+- validated data in singup api

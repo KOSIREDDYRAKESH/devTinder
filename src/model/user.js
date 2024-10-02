@@ -31,19 +31,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 5,
         validate(value) {
-            if (validator.isStrongPassword(value)) {
-                throw new Error("Please Enter a new password.")
+            if (!validator.isStrongPassword(value)) {
+                throw new Error("Please Enter a strong password(Abcd@1234).")
             }
         }
     },
     age: {
         type: Number,
-        required: true,
         min: 18
     },
     gender: {
         type: String,
-        required: true,
         validate(value) {
             if (!["male", "female", "others"].includes(value)) {
                 throw new Error("gender data is not valid.")

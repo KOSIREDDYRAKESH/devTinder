@@ -2,14 +2,28 @@ const express = require("express")
 const connectDB = require("./config/database")
 const app = express()
 const User = require("./model/user")
+const { validateSingupData } = require("./utils/validation")
+const bcrypt = require("bcrypt")
 
 app.use(express.json());
 
 // create a new user api
 app.post("/singup", async (req, res) => {
-    const userObj = new User(req.body)
-
     try {
+        // validate singup data
+        validateSingupData(req)
+
+        const { password, firstName, lastName, emailId } = req.body;
+        //encrypt password
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const userObj = new User({
+            firstName,
+            lastName,
+            emailId,
+            password: passwordHash
+        })
+
         await userObj.save();
         res.send("create user successfully...")
     }
@@ -29,8 +43,8 @@ app.get("/feed", async (req, res) => {
     }
 })
 
-app.delete("/user", async (req, res) => {
-    const userId = req.body.id;
+app.delete("/user/:userId", async (req, res) => {
+    const userId = req.params?.userId;
     try {
         const user = await User.findByIdAndDelete(userId)
         res.send("user deleted successfully...")
@@ -49,7 +63,6 @@ app.patch("/user/:userId", async (req, res) => {
 
         const allowedUpdates = ["userId", "skills", "photoUrl", "password", "gender", "age", "about"];
         const isUpdateAllowed = Object.keys(data).every(k => allowedUpdates.includes(k))
-        console.log(isUpdateAllowed)
         if (data.skills) {
             if (data.skills.length > 10) {
                 throw new Error("skill cannot be more than 10")
