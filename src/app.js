@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt")
 
 app.use(express.json());
 
-// create a new user api
+// create a new user/sinup api
 app.post("/singup", async (req, res) => {
     try {
         // validate singup data
@@ -32,6 +32,30 @@ app.post("/singup", async (req, res) => {
     }
 });
 
+//login api
+app.post("/login", async (req, res) => {
+    try {
+        const { emailId, password } = req.body;
+        const user = await User.findOne({ emailId: emailId })
+        console.log(user)
+        if (!user) {
+            throw new Error("Invalid credentials")
+        }
+        else if (user) {
+            const isPasswordValid = await bcrypt.compare(password, user.password)
+            if (isPasswordValid) {
+                res.send("Login successfull...")
+            }
+            else {
+                res.send("Incorrect password ")
+            }
+        }
+    }
+    catch (err) {
+        res.status(404).send("Error: " + err.message);
+    }
+})
+
 // Feed api to fetch all user in db
 app.get("/feed", async (req, res) => {
     try {
@@ -43,6 +67,7 @@ app.get("/feed", async (req, res) => {
     }
 })
 
+//delete user api
 app.delete("/user/:userId", async (req, res) => {
     const userId = req.params?.userId;
     try {
@@ -54,6 +79,7 @@ app.delete("/user/:userId", async (req, res) => {
     }
 })
 
+//update user data api
 app.patch("/user/:userId", async (req, res) => {
     const userId = req.params?.userId;
     const data = req.body;

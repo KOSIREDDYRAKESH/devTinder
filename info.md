@@ -71,3 +71,5 @@
 - install bcrypt package 
 - created password hash code and stored in DB
 - validated data in singup api
+- created a login api
+- compared a password to validate
