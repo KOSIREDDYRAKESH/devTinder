@@ -43,6 +43,17 @@
 - created a POST api to post dummy user data to database
 - validated through postman the POST api
 
+# CRUD / REST api's
+
 - added the express.json as middleware to app
 - created a singup api dynamic to recieve data from end user
 - created a feed api to get all users from database
+- created a delete user api with id
+- created a updated a user data api
+- have to explore mongoose docs model api's(what r options in patch api)
+
+# SCHEMA VALIDATIONS
+- updated the schema 
+- added reqiure,unique,minLength,maxLength,trim,default,timestamps
+- created a custom validation of gender
+- Improved the schema of database by validating the feilds
