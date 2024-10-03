@@ -73,3 +73,15 @@
 - validated data in singup api
 - created a login api
 - compared a password to validate
+
+# 100% secure singup/login using JWT
+
+- installed cookie-parser
+- created a dummy cookie
+- created a profile api to check cookie recieve
+- install JWT package
+- In login api ,after email,pass validation created a JWT token and send to user inside cookies
+- read the cookies inside api and find who is logged in by userId
+- created a userAuth middle ware
+- added the userAuth to profile & sendConnection api
+- set the expire for JWT token to 1day

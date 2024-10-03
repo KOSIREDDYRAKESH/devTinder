@@ -4,8 +4,12 @@ const app = express()
 const User = require("./model/user")
 const { validateSingupData } = require("./utils/validation")
 const bcrypt = require("bcrypt")
+const cookieParser = require("cookie-parser")
+const JWT = require("jsonwebtoken")
+const { userAuth } = require("./middleware/auth")
 
 app.use(express.json());
+app.use(cookieParser())
 
 // create a new user/sinup api
 app.post("/singup", async (req, res) => {
@@ -37,13 +41,14 @@ app.post("/login", async (req, res) => {
     try {
         const { emailId, password } = req.body;
         const user = await User.findOne({ emailId: emailId })
-        console.log(user)
         if (!user) {
             throw new Error("Invalid credentials")
         }
         else if (user) {
             const isPasswordValid = await bcrypt.compare(password, user.password)
             if (isPasswordValid) {
+                const token = await JWT.sign({ _id: user._id }, "DEVtinder@5124", { expiresIn: "1d" })
+                res.cookie("token", token)
                 res.send("Login successfull...")
             }
             else {
@@ -56,54 +61,26 @@ app.post("/login", async (req, res) => {
     }
 })
 
-// Feed api to fetch all user in db
-app.get("/feed", async (req, res) => {
+// profile api
+app.get("/profile", userAuth, async (req, res) => {
     try {
-        const users = await User.find({})
-        res.send(users)
+        const user = req.user;
+        res.send(user)
+    }
+    catch (err) {
+        res.status(404).send("Error: Invalid cookie,please login again");
+    }
+})
+
+// send connection request api 
+app.get("/sendConnectionRequest", userAuth, async (req, res) => {
+    try {
+        //sending connection request
+        const user = req.user;
+        res.send(user.firstName + " sending connection request");
     }
     catch (err) {
         res.send("something went wrong")
-    }
-})
-
-//delete user api
-app.delete("/user/:userId", async (req, res) => {
-    const userId = req.params?.userId;
-    try {
-        const user = await User.findByIdAndDelete(userId)
-        res.send("user deleted successfully...")
-    }
-    catch (err) {
-        res.send("user not found")
-    }
-})
-
-//update user data api
-app.patch("/user/:userId", async (req, res) => {
-    const userId = req.params?.userId;
-    const data = req.body;
-    try {
-        if (!userId)
-            res.send("userId not valid")
-
-        const allowedUpdates = ["userId", "skills", "photoUrl", "password", "gender", "age", "about"];
-        const isUpdateAllowed = Object.keys(data).every(k => allowedUpdates.includes(k))
-        if (data.skills) {
-            if (data.skills.length > 10) {
-                throw new Error("skill cannot be more than 10")
-            }
-        }
-        if (!isUpdateAllowed) {
-            throw new Error("cannot update the feild.")
-        }
-        const user = await User.findByIdAndUpdate(userId, data, {
-            runValidators: true
-        })
-        res.send("user data updated successfully...")
-    }
-    catch (err) {
-        res.send(err.message)
     }
 })
 
