@@ -74,7 +74,7 @@
 - created a login api
 - compared a password to validate
 
-# 100% secure singup/login using JWT
+# 100% secure singup/login/profile using JWT
 
 - installed cookie-parser
 - created a dummy cookie
@@ -85,3 +85,5 @@
 - created a userAuth middle ware
 - added the userAuth to profile & sendConnection api
 - set the expire for JWT token to 1day
+- created a user schema method to JWT 
+- create a user schema method to compare password by take a passwordInputByUser

@@ -3,13 +3,12 @@ const connectDB = require("./config/database")
 const app = express()
 const User = require("./model/user")
 const { validateSingupData } = require("./utils/validation")
-const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser")
-const JWT = require("jsonwebtoken")
 const { userAuth } = require("./middleware/auth")
 
+
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 // create a new user/sinup api
 app.post("/singup", async (req, res) => {
@@ -45,9 +44,10 @@ app.post("/login", async (req, res) => {
             throw new Error("Invalid credentials")
         }
         else if (user) {
-            const isPasswordValid = await bcrypt.compare(password, user.password)
+            const isPasswordValid = await user.validatePassword(password)
+            console.log(isPasswordValid)
             if (isPasswordValid) {
-                const token = await JWT.sign({ _id: user._id }, "DEVtinder@5124", { expiresIn: "1d" })
+                const token = await user.getJWT();
                 res.cookie("token", token)
                 res.send("Login successfull...")
             }
@@ -59,7 +59,7 @@ app.post("/login", async (req, res) => {
     catch (err) {
         res.status(404).send("Error: " + err.message);
     }
-})
+});
 
 // profile api
 app.get("/profile", userAuth, async (req, res) => {
@@ -70,7 +70,7 @@ app.get("/profile", userAuth, async (req, res) => {
     catch (err) {
         res.status(404).send("Error: Invalid cookie,please login again");
     }
-})
+});
 
 // send connection request api 
 app.get("/sendConnectionRequest", userAuth, async (req, res) => {
@@ -82,7 +82,7 @@ app.get("/sendConnectionRequest", userAuth, async (req, res) => {
     catch (err) {
         res.send("something went wrong")
     }
-})
+});
 
 connectDB()
     .then(() => {
