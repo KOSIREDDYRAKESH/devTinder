@@ -87,3 +87,9 @@
 - set the expire for JWT token to 1day
 - created a user schema method to JWT 
 - create a user schema method to compare password by take a passwordInputByUser
+
+# api folderisation
+
+- created Routes folder to keep all routers
+- creates authRouter,profileRouter,requestRouter,....
+- imported all routers in app.js
