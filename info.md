@@ -93,3 +93,8 @@
 - created Routes folder to keep all routers
 - creates authRouter,profileRouter,requestRouter,....
 - imported all routers in app.js
+- created logout api
+- created a patch update profile data api (/profile/edit)
+- created a patach forgot password api (/profile/password)
+## validated all data in every post,patch api's
+- tested all api's

@@ -13,4 +13,13 @@ const validateSingupData = (req) => {
     }
 }
 
-module.exports = { validateSingupData };
+const validateDataProfiteEdit = (req) => {
+    const user = req.body;
+    const validDataFields = ["firstName", "lastName", "emailId", "age", "skills", "about", "photoUrl"]
+    const isDataEditValid = Object.keys(user).every(field => validDataFields.includes(field))
+    return isDataEditValid;
+}
+
+
+
+module.exports = { validateSingupData, validateDataProfiteEdit };
