@@ -98,3 +98,10 @@
 - created a patach forgot password api (/profile/password)
 ## validated all data in every post,patch api's
 - tested all api's
+
+- created connetionRequestSchema
+- created connectionRequest api
+- validated all corner cases of api
+- used $or:[{}] & $and:[{}] query in mongoDB & have to read more logical queries
+- created schema.pre() function
+- connection as ignored/interested

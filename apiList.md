@@ -11,8 +11,8 @@
 - PATCH /profile/password
 
 ## connectionsRequestRouter
-- POST request/send/intrested/:userId
-- POST request/send/igonred/:userId
+- POST request/send/:status/:userId
+
 - POST request/review/accepetd/:requestId
 - POST request/review/rejected/:requestId
 
