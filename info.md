@@ -105,3 +105,11 @@
 - used $or:[{}] & $and:[{}] query in mongoDB & have to read more logical queries
 - created schema.pre() function
 - connection as ignored/interested
+
+- created a review connection api (accpeted/rejected)
+- created a GET api to recieve reuestes of user
+# Thought process POST vs GET (as gaurdian)
+
+- created feed api
+- validated feed user to avoid already has connections with users
+- used $nin,$ne (Comparison quert operaters) from mongoDB

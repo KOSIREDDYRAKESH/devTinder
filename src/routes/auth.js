@@ -10,7 +10,7 @@ authRouter.post("/singup", async (req, res) => {
         // validate singup data
         validateSingupData(req)
 
-        const { password, firstName, lastName, emailId } = req.body;
+        const { password, firstName, lastName, emailId, gender } = req.body;
         //encrypt password
         const passwordHash = await bcrypt.hash(password, 10);
 
@@ -18,6 +18,7 @@ authRouter.post("/singup", async (req, res) => {
             firstName,
             lastName,
             emailId,
+            gender,
             password: passwordHash
         })
 
