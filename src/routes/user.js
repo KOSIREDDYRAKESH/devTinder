@@ -65,7 +65,12 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         //0.4 interested cards
 
         const loggedInUser = req.user;
+        let page = parseInt(req.query.page) || 1;
+        page = page <= 0 ? 1 : page;
+        let limit = parseInt(req.query.limit) || 10;
+        limit = limit > 50 ? 50 : limit;
 
+        const skip = (page - 1) * limit;
         const connectionRequests = await ConnectRequest.find(
             {
                 $or: [
@@ -83,13 +88,13 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
         const users = await User.find(
             {
-                $and :[
-                    {_id: {$nin : Array.from(hideUserFromFeed)}},
-                    {_id:{$ne:loggedInUser._id}}
+                $and: [
+                    { _id: { $nin: Array.from(hideUserFromFeed) } },
+                    { _id: { $ne: loggedInUser._id } }
                 ]
             }
-        ).select(USER_SAFE_DATA_STRING);
-        
+        ).select(USER_SAFE_DATA_STRING).skip(skip).limit(limit);
+
         res.send(users);
     }
     catch (err) {
